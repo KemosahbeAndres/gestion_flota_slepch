@@ -28,3 +28,15 @@ Cambiar permisos a carpeta addons en ubuntu
 sudo chown -R andres:andres ./odoo-docker/addons
 
 sudo andres:slep
+
+## Para refrescar los modulos en desarrollo
+
+docker exec -it odoo ./odoo-bin -d basededatos -u mi_modulo -i mi_modulo --dev=all
+
+## Para refescar un modulo en desarrollo
+
+docker exec -it odoo ./odoo-bin -u mi_modulo -d basededatos
+
+## Al cambiar archivos python
+
+docker restart odoo
