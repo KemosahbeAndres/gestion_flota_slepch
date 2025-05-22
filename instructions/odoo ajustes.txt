@@ -26,3 +26,5 @@ odoo scaffold mi_modulo /mnt/extra-addons
 Cambiar permisos a carpeta addons en ubuntu
 
 sudo chown -R andres:andres ./odoo-docker/addons
+
+sudo andres:slep
