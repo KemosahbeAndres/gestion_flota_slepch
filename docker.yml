@@ -1,0 +1,108 @@
+version: "3.8"
+
+services:
+  traefik:
+    image: traefik:v2.11
+    container_name: traefik
+    restart: unless-stopped
+    command:
+      - --api.dashboard=true
+      - --api.insecure=true
+      - --providers.docker=true
+      - --entrypoints.web.address=:80
+      - --entrypoints.erp.address=:8010
+    ports:
+      - "80:80"
+      - "8080:8080"  # Dashboard opcional
+      - "8010:8010"  # ERP Odoo
+      - "8020:8020"  # STAGE Odoo
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./traefik/traefik.yml:/etc/traefik/traefik.yml:ro
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.localhost`)"
+      #- "traefik.http.routers.dashboard.rule=PathPrefix(`/dashboard`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.entrypoints=traefik"
+    networks:
+      - proxy
+
+
+  erp-db:
+    image: postgres:15
+    container_name: erp-db
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./data/erp-db:/var/lib/postgresql/data
+    networks:
+      - proxy
+
+  erp:
+    image: odoo:${ODOO_VERSION}
+    user: "1000:1000"
+    container_name: erp
+    restart: always
+    depends_on:
+      - erp-db
+    environment:
+      - HOST=erp-db
+      - USER=odoo
+      - PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./erp/addons:/mnt/extra-addons
+      - ./erp/config:/etc/odoo
+      - ./config/erp/odoo.conf:/etc/odoo/odoo.conf
+      - ./data/erp-web:/var/lib/odoo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.erp.rule=Host(`${DOMAIN1}`)"
+      - "traefik.http.routers.erp.rule=PathPrefix(`/erp`)"
+      - "traefik.http.routers.erp.entrypoints=web"
+    networks:
+      - proxy
+
+  stage-db:
+    image: postgres:15
+    container_name: stage-db
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./data/stage-db:/var/lib/postgresql/data
+    networks:
+      - proxy
+
+  stage:
+    image: odoo:${ODOO_VERSION}
+    user: "1000:1000"
+    container_name: stage
+    restart: always
+    depends_on:
+      - stage-db
+    environment:
+      - HOST=stage-db
+      - USER=odoo
+      - PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - ./stage/addons:/mnt/extra-addons
+      - ./stage/config:/etc/odoo
+      - ./config/stage/odoo.conf:/etc/odoo/odoo.conf
+      - ./data/stage-web:/var/lib/odoo
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.stage.rule=Host(`${DOMAIN2}`)"
+      - "traefik.http.routers.stage.rule=PathPrefix(`/stage`)"
+      - "traefik.http.routers.stage.entrypoints=stage"
+    networks:
+      - proxy
+
+networks:
+  proxy:
+    external: true

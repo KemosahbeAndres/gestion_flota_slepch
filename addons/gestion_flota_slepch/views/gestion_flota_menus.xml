@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <menuitem id="gestion_flota_menu_root"
+            name="Gestión Flota"
+            sequence="10"/>
+
+    <record id="action_dashboard_page" model="ir.actions.act_url">
+        <field name="name">Dashboard</field>
+        <field name="type">ir.actions.act_url</field>
+        <field name="url">/flota</field>
+        <field name="target">self</field>
+    </record>
+
+    <menuitem id="gestion_flota_menu_dashboard"
+            name="Dashboard"
+            sequence="10"
+            parent="gestion_flota_menu_root"
+            action="action_dashboard_page" />
+
+    <menuitem id="gestion_flota_menu_vehiculos"
+            name="Vehículos"
+            parent="gestion_flota_menu_root"
+            sequence="10"/>
+
+    <menuitem id="gestion_flota_menu_reportes"
+            name="Reportes"
+            parent="gestion_flota_menu_root"
+            sequence="10"/>
+
+    <menuitem id="gestion_flota_menu_conductores"
+            name="Conductores"
+            parent="gestion_flota_menu_root"
+            sequence="10"/>
+
+    <menuitem id="gestion_flota_menu_ajustes"
+            name="Ajustes"
+            parent="gestion_flota_menu_root"
+            sequence="10"/>
+
+</odoo>

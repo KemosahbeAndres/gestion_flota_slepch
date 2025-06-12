@@ -1,5 +1,15 @@
 <odoo>
-    <data>
+
+    <template id="dashboard_template" name="Dashboard">
+      <t t-name="gestion_flota_slepch.dashboard_template" t-inherit="website.layout" t-inherit-mode="primary" t-call="website.layout">        
+        <xpath expr="//div[@id='wrap']" position="inside">
+          <div class="container mt-5">
+            <h2>Hola Mundo</h2>
+          </div>
+        </xpath>
+      </t>
+    </template>
+
 <!--
         <template id="listing">
           <ul>
@@ -20,5 +30,5 @@
           </dl>
         </template>
 -->
-    </data>
+  
 </odoo>

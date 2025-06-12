@@ -9,7 +9,8 @@ services:
     volumes:
       - ./addons:/mnt/extra-addons
       - ./odoo.conf:/etc/odoo/odoo.conf
-      - ./postgresql-data/:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
+      - odoo_data:/var/lib/odoo
     environment:
       - HOST=postgres
       - USER=odoo
@@ -25,5 +26,8 @@ services:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
     volumes:
-      - ./postgresql-data/:/var/lib/postgresql/data
+      - postgres_data:/var/lib/postgresql/data
       
+volumes:
+  odoo_data:
+  postgres_data:
