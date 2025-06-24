@@ -1,0 +1,25 @@
+<odoo>
+    <t t-name="gestion_flota_slepch.DashboardTemplate">
+    <div class="container p-4">
+        <h2>Dashboard de Gestión de Flota</h2>
+        <!--<t t-if="state.loading">
+        <p>Cargando métricas...</p>
+        </t>
+        <t t-else="">
+        <div class="d-flex flex-wrap gap-3 mt-3">
+            <t t-foreach="state.stats" t-as="s" t-key="s.label">
+                <div class="card text-white" t-att-class="'bg-' + props.color" style="min-width:200px;">
+                    <div class="p-3 d-flex justify-between align-items-center">
+                        <div>
+                        <div class="h5" t-esc="props.label"/>
+                        <div class="h2 fw-bold" t-esc="props.value"/>
+                        </div>
+                        <i t-att-class="'fa ' + props.icon + ' fa-2x'"/>
+                    </div>
+                </div>
+            </t>
+        </div>
+        </t>-->
+    </div>
+    </t>
+</odoo>
