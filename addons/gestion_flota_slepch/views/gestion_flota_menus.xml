@@ -13,9 +13,18 @@
                 action="action_dashboard_fleet"
                  />
 
+        <menuitem id="gestion_flota_menu_admin"
+                name="Administración"
+                parent="gestion_flota_menu_root"/>
+
         <menuitem id="gestion_flota_menu_vehiculos"
                 name="Vehículos"
-                parent="gestion_flota_menu_root"
+                parent="gestion_flota_menu_admin"
+                action="action_dashboard_fleet"/>
+
+        <menuitem id="gestion_flota_menu_conductores"
+                name="Conductores"
+                parent="gestion_flota_menu_admin"
                 action="action_dashboard_fleet"/>
 <!--
         <menuitem id="gestion_flota_menu_reportes"
