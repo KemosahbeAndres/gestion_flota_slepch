@@ -1,0 +1,27 @@
+<odoo>
+    <t t-name="gestion_flota_slepch.DocumentCategoryForm">
+        <div class="o_form">
+            <div class="o_field">
+                <label>Nombre</label>
+                <input type="text" t-on-input="ev => state.name = ev.target.value" t-att-value="state.name" />
+            </div>
+            <div class="o_field">
+                <label>Es Requerido</label>
+                <input type="checkbox" t-on-change="ev => state.is_required = ev.target.checked" t-att-checked="state.is_required" />
+            </div>
+            <div class="o_field">
+                <label>Categoría Padre</label>
+                <select t-on-change="ev => state.parent_id = parseInt(ev.target.value) || null">
+                    <option value="">-- Ninguna --</option>
+                    <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
+                        <option t-att-value="cat.id" t-att-selected="cat.id === state.parent_id"><t t-esc="cat.name"/></option>
+                    </t>
+                </select>
+            </div>
+            <div class="o_buttons mt-2">
+                <button type="button" t-on-click="saveCategory">Guardar</button>
+                <button type="button" t-on-click="resetForm">Cancelar</button>
+            </div>
+        </div>
+    </t>
+</odoo>

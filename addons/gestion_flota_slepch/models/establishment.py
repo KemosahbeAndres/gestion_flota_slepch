@@ -1,9 +1,14 @@
 # -*- coding: utf-8 -*-
 
-# from odoo import models, fields, api
+from odoo import models, fields, api
 
 
-# class gestion_flota_slepch(models.Model):
+class Establishment(models.Model):
+    _inherit = 'res.company'
+
+    latitude = fields.Float(string='Latitud')
+    longitude = fields.Float(string='Longitud')
+    is_educational_establishment = fields.Boolean(string='Establecimiento Educativo', default=True)
 #     _name = 'gestion_flota_slepch.gestion_flota_slepch'
 #     _description = 'gestion_flota_slepch.gestion_flota_slepch'
 

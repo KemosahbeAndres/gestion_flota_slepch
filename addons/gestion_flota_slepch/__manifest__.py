@@ -15,21 +15,25 @@ Long description of module's purpose
     # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
     'category': 'Fleet',
-    'version': '0.1.2',
+    'version': '0.1.3',
     'license': 'LGPL-3',
     # any module necessary for this one to work correctly
-    'depends': ['fleet', 'web'],
+    'depends': ['base', 'fleet', 'web'],
     'assets': {
         'web.assets_backend': [
             'gestion_flota_slepch/static/src/js/dashboard.js',
+            'gestion_flota_slepch/static/src/js/dashboard_template.xml',
+            'gestion_flota_slepch/static/src/js/document_category_form.js',
+            'gestion_flota_slepch/static/src/js/document_category_form_template.xml',
             #'gestion_flota_slepch/static/src/js/useFleetStats.js',
             'gestion_flota_slepch/static/src/js/main.js',
-            'gestion_flota_slepch/static/src/js/dashboard_template.xml',
+            
         ]
     },
     # always loaded
     'data': [
-        # 'security/ir.model.access.csv',
+        #'security/gestion_flota_groups.xml',
+        'security/ir.model.access.csv',
         # 'views/assets.xml',
         'views/gestion_flota_menus.xml'
     ],

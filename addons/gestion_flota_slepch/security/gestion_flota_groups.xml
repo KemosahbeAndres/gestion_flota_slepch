@@ -1,0 +1,25 @@
+<!-- Corrección de seguridad/gestion_flota_groups.xml -->
+<odoo>
+  <data noupdate="0">
+
+    <!-- Grupo: Encargado de Flota -->
+    <record id="group_encargado_flota" model="res.groups">
+      <field name="name">Encargado de Flota</field>
+      <!-- FIX: Cambio category_id a una categoría existente -->
+      <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <!-- Grupo: Establecimiento -->
+    <record id="group_establecimiento" model="res.groups">
+      <field name="name">Establecimiento</field>
+      <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+    <!-- Grupo: Conductor -->
+    <record id="group_conductor" model="res.groups">
+      <field name="name">Conductor</field>
+      <field name="category_id" ref="base.module_category_hidden"/>
+    </record>
+
+  </data>
+</odoo>
