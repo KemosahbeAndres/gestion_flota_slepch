@@ -8,7 +8,8 @@
 
         <menuitem id="gestion_flota_menu_root" name="Gestión Flota" sequence="1"/>
 
-        <menuitem id="gestion_flota_menu_dashboard" name="Dashboard"
+        <menuitem id="gestion_flota_menu_dashboard" 
+                name="Dashboard"
                 parent="gestion_flota_menu_root"
                 action="action_dashboard_fleet"
                  />
@@ -24,6 +25,11 @@
 
         <menuitem id="gestion_flota_menu_conductores"
                 name="Conductores"
+                parent="gestion_flota_menu_admin"
+                action="action_dashboard_fleet"/>
+        
+        <menuitem id="gestion_flota_menu_documentacion"
+                name="Documentación"
                 parent="gestion_flota_menu_admin"
                 action="action_dashboard_fleet"/>
 <!--

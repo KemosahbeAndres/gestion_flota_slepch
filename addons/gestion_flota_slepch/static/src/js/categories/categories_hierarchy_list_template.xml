@@ -1,0 +1,44 @@
+<odoo>
+    <t t-name="gestion_flota_slepch.CategoryHierarchyList">
+        <div>
+            <h2>Vehiculos</h2>
+            <ul class="list-group">
+                <t t-foreach="state.car_categories" t-as="cat" t-key="cat.id">
+                <li class="list-group-item">
+                    <t t-esc="cat.name"/>
+                    <t t-if="cat.children.length">
+                    <ul class="list-group ms-3">
+                        <t t-foreach="cat.children" t-as="child" t-key="child.id">
+                        <li class="list-group-item">
+                            <t t-esc="child.name"/>
+                            <!-- puedes repetir esto si hay nietos -->
+                        </li>
+                        </t>
+                    </ul>
+                    </t>
+                </li>
+                </t>
+            </ul>
+
+            <h2>Conductores</h2>
+            <ul class="list-group">
+                <t t-foreach="state.driver_categories" t-as="cat" t-key="cat.id">
+                <li class="list-group-item">
+                    <t t-esc="cat.name"/>
+                    <t t-if="cat.children.length">
+                    <ul class="list-group ms-3">
+                        <t t-foreach="cat.children" t-as="child" t-key="child.id">
+                        <li class="list-group-item">
+                            <t t-esc="child.name"/>
+                            <!-- puedes repetir esto si hay nietos -->
+                        </li>
+                        </t>
+                    </ul>
+                    </t>
+                </li>
+                </t>
+            </ul>
+
+        </div>
+    </t>
+</odoo>

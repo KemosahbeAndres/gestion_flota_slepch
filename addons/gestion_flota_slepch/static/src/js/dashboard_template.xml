@@ -1,29 +1,18 @@
 <odoo>
     <t t-name="gestion_flota_slepch.DashboardTemplate">
-    <div class="container p-4">
-        <h2>Dashboard de Gestión de Flota</h2>
-        <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
-        <div>
-            <DocumentCategoryForm />
+    <div class="o_main">
+        <div class="o_content p-4">
+            <div class="o_group">
+                <h2>Dashboard de Gestión de Flota</h2>
+                <p>El Servicio Local de Educación Pública Chinchorro es un organismo público encargado de administrar los recursos destinados para la educación en nuestra región de Arica y Parinacota. Actualmente existen 75 establecimientos activos, que imparten educación a más de 19.000 estudiantes de nivel básico y medio, a estos se le suman más de 3.000 funcionarios que trabajan apoyando las labores de educación.</p>
+                <p>Esta institución cuenta con un parque automotriz de más de 50 vehículos a su disposición. Estos vehículos, en su mayoría buses, son utilizados por los establecimientos educacionales en la región, para el traslado y acercamiento de los alumnos hacia los establecimientos, a sus hogares y a diferentes actividades extracurriculares programadas por el mismo. Además, una pequeña cantidad de vehículos está destinada para el uso de los funcionarios del servicio local para realizar labores de mantenimiento y soporte a estos establecimientos.</p>
+                <p>Evidentemente una mejora en la gestión de la flota afectara positivamente en la educación que reciben los alumnos, y que imparten los profesores, asistentes, técnicos y profesionales del área, además de los apoderados que se ven involucrados por consecuencia. También se debe considerar que, como todo servicio público, está comprometido con la ciudadanía a cumplir con leyes y normativas que le exigen entre otras cosas, mantener transparencia en todos sus procesos (Ley de Transparencia), administrar apropiadamente los recursos públicos (Ley 10.336 de Responsabilidad en el uso de recursos públicos) y actualizar sus procesos internos a una modalidad digital y moderna (Ley 19.799 de Modernización del Estado). Lo que convierte a este proyecto en un paso más hacia la digitalización de los procesos dentro de este y otros servicios públicos.
+</p>
+            </div>
+            <div class="o_group">
+                <DocumentCategoryForm />
+            </div>
         </div>
-        <!--<t t-if="state.loading">
-        <p>Cargando métricas...</p>
-        </t>
-        <t t-else="">
-        <div class="d-flex flex-wrap gap-3 mt-3">
-            <t t-foreach="state.stats" t-as="s" t-key="s.label">
-                <div class="card text-white" t-att-class="'bg-' + props.color" style="min-width:200px;">
-                    <div class="p-3 d-flex justify-between align-items-center">
-                        <div>
-                        <div class="h5" t-esc="props.label"/>
-                        <div class="h2 fw-bold" t-esc="props.value"/>
-                        </div>
-                        <i t-att-class="'fa ' + props.icon + ' fa-2x'"/>
-                    </div>
-                </div>
-            </t>
-        </div>
-        </t>-->
     </div>
     </t>
 </odoo>

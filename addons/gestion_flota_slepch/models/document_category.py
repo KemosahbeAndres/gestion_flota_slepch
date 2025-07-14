@@ -22,4 +22,14 @@ class DocumentCategory(models.Model):
         string='Subcategorías'
     )
     parent_path = fields.Char(index=True)  # Necesario para soportar búsquedas jerárquicas (`_parent_store = True`)
+    document_type = fields.Selection(
+        selection=[
+            ('vehicles', 'Vehículos'),
+            ('drivers', 'Conductores'),
+            ('contracts', 'Contratos'),
+            ('incidents', 'Incidentes'),
+        ],
+        string='Tipo de Documento',
+        required=True
+    )
 

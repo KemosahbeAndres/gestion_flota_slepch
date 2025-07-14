@@ -15,7 +15,7 @@ export class DocumentCategoryForm extends Component {
         this.state = useState({
         name: '',
         parent_id: null,
-        is_required: false,
+        required: false,
         id: null,
         categories: [],
         });
@@ -26,10 +26,11 @@ export class DocumentCategoryForm extends Component {
 
     async loadCategories() {
         try {
-            const records = await this.orm.searchRead("flota.document.category", [], ["id", "name"]);
+            const records = await this.orm.searchRead("flota.document.category", [], ["id", "name", "parent_id", "required"]);
             this.state.categories = records;
         } catch (err) {
             this.notification.add("Error cargando categorías: " + err, { type: "danger" });
+            console.log(err)
         }
     }
 
@@ -37,7 +38,7 @@ export class DocumentCategoryForm extends Component {
         const values = {
             name: this.state.name,
             parent_id: this.state.parent_id,
-            is_required: this.state.is_required,
+            required: this.state.required,
             parent_id: this.state.parent_id ? this.state.parent_id : false,
         };
         try {
@@ -58,7 +59,7 @@ export class DocumentCategoryForm extends Component {
     resetForm() {
         this.state.name = '';
         this.state.parent_id = null;
-        this.state.is_required = false;
+        this.state.required = false;
         this.state.id = null;
     }
 
@@ -66,6 +67,11 @@ export class DocumentCategoryForm extends Component {
         this.state.id = record.id;
         this.state.name = record.name;
         this.state.parent_id = record.parent_id ? record.parent_id[0] : null;
-        this.state.is_required = record.is_required;
+        this.state.required = record.required;
+    }
+
+    onChangeParentCategory(ev) {
+        const value = ev.target.value;
+        this.state.parent_id = value ? parseInt(value) : null;
     }
 }
