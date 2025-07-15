@@ -1,6 +1,7 @@
 <odoo>
     <t t-name="gestion_flota_slepch.DocumentCategoryForm">
         <div class="o_form card p-4">
+        <h2>Crear categoria</h2>
             <div class="o_field input-group mt-2">
                 <label class="input-group-text" >Nombre</label>
                 <input class="form-control" type="text" t-on-input="ev => state.name = ev.target.value" t-att-value="state.name" />

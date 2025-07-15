@@ -3,7 +3,12 @@
         <record id="action_dashboard_fleet" model="ir.actions.client">
                 <field name="name">Dashboard Flota</field>
                 <field name="tag">gestion_flota_slepch.dashboard</field>
-                
+        </record>
+
+        <record id="action_doc_categories_fleet" model="ir.actions.client">
+                <field name="name">Categorias Documentacion Flota</field>
+                <field name="tag">gestion_flota_slepch.categories</field>
+                <field name="target">main</field>
         </record>
 
         <menuitem id="gestion_flota_menu_root" name="Gestión Flota" sequence="1"/>
@@ -30,8 +35,19 @@
         
         <menuitem id="gestion_flota_menu_documentacion"
                 name="Documentación"
-                parent="gestion_flota_menu_admin"
-                action="action_dashboard_fleet"/>
+                parent="gestion_flota_menu_admin"/>
+
+        <menuitem id="gestion_flota_menu_documentos"
+                name="Documentos"
+                parent="gestion_flota_menu_documentacion"
+                action="action_dashboard_fleet"
+                sequence="1"/>
+
+        <menuitem id="gestion_flota_menu_categorias"
+                name="Categorias"
+                parent="gestion_flota_menu_documentacion"
+                action="action_doc_categories_fleet"
+                sequence="2"/>
 <!--
         <menuitem id="gestion_flota_menu_reportes"
                 name="Reportes"

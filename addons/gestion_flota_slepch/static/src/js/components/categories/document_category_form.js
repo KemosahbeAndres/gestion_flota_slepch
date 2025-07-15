@@ -1,3 +1,4 @@
+/** @odoo-module **/
 /**
  * OWL Component: Formulario de Categorías de Documentos
  */
@@ -10,6 +11,7 @@ export class DocumentCategoryForm extends Component {
     static template = "gestion_flota_slepch.DocumentCategoryForm";
 
     setup() {
+        console.log("[DocumentForm] Servicios disponibles:", Object.keys(this.env.services));
         this.orm = useService('orm');
         this.notification = useService('notification');
         this.state = useState({

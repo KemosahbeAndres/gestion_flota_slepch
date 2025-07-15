@@ -21,13 +21,17 @@ Long description of module's purpose
     'depends': ['base', 'fleet', 'web'],
     'assets': {
         'web.assets_backend': [
-            'gestion_flota_slepch/static/src/js/dashboard.js',
-            'gestion_flota_slepch/static/src/js/dashboard_template.xml',
-            'gestion_flota_slepch/static/src/js/document_category_form.js',
-            'gestion_flota_slepch/static/src/js/document_category_form_template.xml',
-            #'gestion_flota_slepch/static/src/js/useFleetStats.js',
             'gestion_flota_slepch/static/src/js/main.js',
-            
+            'gestion_flota_slepch/static/src/js/stores/category_store.js',
+            'gestion_flota_slepch/static/src/js/pages/dashboard.js',
+            'gestion_flota_slepch/static/src/js/pages/dashboard_template.xml',
+            'gestion_flota_slepch/static/src/js/pages/categories.js',
+            'gestion_flota_slepch/static/src/js/pages/categories_template.xml',
+            'gestion_flota_slepch/static/src/js/components/categories/document_category_form.js',
+            'gestion_flota_slepch/static/src/js/components/categories/document_category_form_template.xml',
+            'gestion_flota_slepch/static/src/js/components/categories/categories_hierarchy_list.js',
+            'gestion_flota_slepch/static/src/js/components/categories/categories_hierarchy_list_template.xml',
+            #'gestion_flota_slepch/static/src/js/useFleetStats.js',
         ]
     },
     # always loaded
