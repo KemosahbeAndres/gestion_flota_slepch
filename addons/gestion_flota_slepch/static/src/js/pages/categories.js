@@ -39,7 +39,10 @@ export class Categories extends Component {
     openEditDialog(category){
         this.dialog.add(DocumentCategoryForm, {
             category: category,
-            onSaved: async () => await this.loadCategories(),
+            onSaved: () => {
+                this.state.uncategorized = []
+                this.loadCategories()
+            },
         });
     }
 
@@ -51,24 +54,27 @@ export class Categories extends Component {
     }
 
     async loadCategories() {
-        this.state.uncategorized = await this.orm.call(
+        console.info("Actualizando listado de categorias...", this.state.uncategorized)
+        const uncategorized = await this.orm.call(
             'flota.document.category',
             'get_category_hierarchy',
             [],
             {}
         )
-        this.state.vehicle_categories = await this.orm.call(
+        this.state.uncategorized = uncategorized
+        console.log("Uncategorized", uncategorized)
+        this.state.vehicle_categories = [...await this.orm.call(
             'flota.document.category',
             'get_category_hierarchy',
             ['vehicles'],
             {}
-        )
-        this.state.driver_categories = await this.orm.call(
+        )]
+        this.state.driver_categories = [...await this.orm.call(
             'flota.document.category',
             'get_category_hierarchy',
             ['drivers'],
             {}
-        )
+        )]
     }
 
 
@@ -104,6 +110,7 @@ export class Categories extends Component {
                 type: "danger"
             });
         }
+        this.loadCategories()
     }
 
 }

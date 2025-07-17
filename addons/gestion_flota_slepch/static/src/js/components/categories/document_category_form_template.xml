@@ -15,16 +15,30 @@
                     <div class="modal-body">
                         <div class="o_form card p-4">
                             <div class="o_field mt-2 input-group">
+                                <label class="input-group-text">Categoría Padre</label>
+                                <select class="form-control" 
+                                    t-on-change="onChangeParentCategory"
+                                    t-model="state.parent_id"
+                                    t-att-disabled="state.parent_blocked">
+                                    <option value="">-- Ninguna --</option>
+                                    <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
+                                        <option t-att-value="cat.id">
+                                            <t t-esc="cat.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                            <div class="o_field mt-2 input-group">
                                 <label class="input-group-text">Tipo</label>
                                 <select class="form-control" 
-                                    t-att-value="state.document_type"  
                                     t-model="state.document_type"
+                                    t-att-disabled="state.blocked"
                                     t-on-change="ev => state.document_type = ev.target.value">
                                     <option value="">-- Ninguna --</option>
-                                    <option t-att-selected="'vehicles' === state.document_type" value="vehicles">Vehiculos</option>
-                                    <option t-att-selected="'drivers' === state.document_type" value="drivers">Conductores</option>
-                                    <option t-att-selected="'incidents' === state.document_type" value="incidents">Incidentes</option>
-                                    <option t-att-selected="'contracts' === state.document_type" value="contracts">Contratos</option>
+                                    <option value="vehicles">Vehiculos</option>
+                                    <option value="drivers">Conductores</option>
+                                    <option value="incidents">Incidentes</option>
+                                    <option value="contracts">Contratos</option>
                                 </select>
                             </div>
                             <div class="o_field input-group mt-2">
@@ -34,24 +48,14 @@
                                     t-att-value="state.name" />
                             </div>
                             <div class="o_field form-check mt-2">
-                                <input class="form-check-input" type="checkbox"
+                                <input class="form-check-input" 
+                                    type="checkbox"
+                                    t-att-disabled="state.blocked"
                                     t-on-change="ev => state.required = ev.target.checked"
                                     t-att-checked="state.required"/>
-                                <label class="form-check-label">Es Requerido</label>
+                                <label class="form-check-label">Obligatorio</label>
                             </div>
-                            <div class="o_field mt-2 input-group">
-                                <label class="input-group-text">Categoría Padre</label>
-                                <select class="form-control" 
-                                    t-on-change="onChangeParentCategory"
-                                    t-model="state.parent_id">
-                                    <option value="">-- Ninguna --</option>
-                                    <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
-                                        <option t-att-value="cat.id" t-att-selected="cat.id === state.parent_id">
-                                            <t t-esc="cat.name"/>
-                                        </option>
-                                    </t>
-                                </select>
-                            </div>
+                            
                         </div>
                     </div>
 

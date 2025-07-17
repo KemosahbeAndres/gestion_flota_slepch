@@ -35,7 +35,6 @@ class DocumentCategory(models.Model):
 
     @api.model
     def get_category_hierarchy(self, document_type=None):
-
         domain = []
         if document_type:
             domain.append(('document_type', '=', document_type))

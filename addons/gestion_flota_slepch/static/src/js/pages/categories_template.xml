@@ -1,19 +1,21 @@
 <odoo>
     <t t-name="gestion_flota_slepch.CategoriesTemplate">
         <div class="o_content container-fluid rounded p-4 bg-white">
-            <div class="hstack">
-                <h2>Categorias</h2>
-                <input type="button" value="Nuevo" class="btn btn-primary" t-on-click="() => this.openCreateDialog()"/>
-            </div>
-            <div class="container grid" style="--columns: 3; --gap: 2rem;">
-                <!-- Card para sin Categoria -->
-                <div class="card mb-4 shadow-sm rounded">
-                    <div class="card-header bg-primary text-white">Sin Categoría</div>
-                    <div class="card-body">
-                        <CategoryHierarchyList 
-                            categories="state.uncategorized" 
-                            onOpenEditDialog.bind="openEditDialog" 
-                            onOpenDeleteDialog.bind="openDeleteDialog" />
+            <div class="container">
+                <div class="hstack mb-4">
+                    <h2>Categorias</h2>
+                    <input type="button" value="Nuevo" class="btn btn-primary ms-2" t-on-click="() => this.openCreateDialog()"/>
+                </div>
+                <div class="grid mt-2" style="--columns: 3; --gap: 2rem;">
+                    <!-- Card para sin Categoria -->
+                    <div class="card mb-4 shadow-sm rounded">
+                        <div class="card-header bg-primary text-white">Sin Categoría</div>
+                        <div class="card-body">
+                            <CategoryHierarchyList 
+                                categories="state.uncategorized" 
+                                onOpenEditDialog.bind="openEditDialog" 
+                                onOpenDeleteDialog.bind="openDeleteDialog" />
+                        </div>
                     </div>
                 </div>
             </div>

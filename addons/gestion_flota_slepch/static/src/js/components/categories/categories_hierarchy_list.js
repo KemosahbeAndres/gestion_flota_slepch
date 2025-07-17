@@ -12,15 +12,14 @@ export class CategoryHierarchyList extends Component {
         onOpenDeleteDialog: Function,
         categories: {required: false},
     }
+    static components = { CategoryHierarchyList }
+
 
     setup() {
         super.setup();
         
         this.dialog = useService('dialog')
         this.notification = useService('notification')
-        this.state = useState({ 
-            list: []
-        })
         onWillStart(async () => {
             try {
                 await this.loadData()
@@ -31,15 +30,11 @@ export class CategoryHierarchyList extends Component {
     }
 
     async loadData(){
-        if(this.props.categories && this.props.categories.length){
-            this.state.list = [...this.props.categories]
-        }else{
+        if(!this.props.categories && !this.props.categories.length){
             this.notification.add("Error al cargar las categorias.", { type: "danger" })
         }
 
-        if(this.props.onOpenEditDialog && this.props.onOpenDeleteDialog){
-            console.log("callback listos!")
-        }else{
+        if(!this.props.onOpenEditDialog && !this.props.onOpenDeleteDialog){
             this.notification.add("Error, no se encuentran los callback necesarios.", { type: "danger" })
         }
         console.info(this.props)

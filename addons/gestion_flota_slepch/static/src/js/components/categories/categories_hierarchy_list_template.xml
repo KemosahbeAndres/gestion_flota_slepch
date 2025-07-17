@@ -1,19 +1,24 @@
 <odoo>
     <t t-name="gestion_flota_slepch.CategoryHierarchyList">
         <ul class="list-group list-group-flush">
-            <t t-foreach="state.list" t-as="cat" t-key="cat.id">
+            <t t-foreach="props.categories" t-as="cat" t-key="cat.id">
                 <li t-attf-class="list-group-item d-flex justify-content-between">
-                <strong t-esc="cat.name" />
+                <p>
+                    <t t-esc="cat.name" />
+                    <span t-if="cat.required" class="badge bg-secondary ms-2">Obligatorio</span>
+                </p>
                 <div class="hstack gap-2">
                     <a class="link-alert" href="#" t-on-click="() => this.openEditDialog(cat)">Modificar</a>
                     <a class="link-danger" href="#" t-on-click="() => this.openDeleteDialog(cat)">Quitar</a>
                 </div>
                 </li>
                 <t t-if="cat.children.length">
-                    <CategoryHierarchyList 
-                        categories="cat.children" 
-                        onOpenEditDialog.bind="openEditDialog" 
-                        onOpenDeleteDialog.bind="openDeleteDialog" />
+                    <li t-attf-class="list-group-item">
+                        <CategoryHierarchyList 
+                            categories="cat.children" 
+                            onOpenEditDialog.bind="openEditDialog" 
+                            onOpenDeleteDialog.bind="openDeleteDialog" />
+                    </li>
                 </t>
             </t>
         </ul>
