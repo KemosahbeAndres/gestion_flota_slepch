@@ -1,122 +1,21 @@
 <odoo>
     <t t-name="gestion_flota_slepch.CategoryHierarchyList">
-        <div class="container grid" style="--columns: 3; --gap: 2rem;">
-
-            <!-- Card para Vehículos -->
-            <div class="card mb-4 shadow-sm rounded">
-                <div class="card-header bg-primary text-white">
-                    Sin Categoría
+        <ul class="list-group list-group-flush">
+            <t t-foreach="state.list" t-as="cat" t-key="cat.id">
+                <li t-attf-class="list-group-item d-flex justify-content-between">
+                <strong t-esc="cat.name" />
+                <div class="hstack gap-2">
+                    <a class="link-alert" href="#" t-on-click="() => this.openEditDialog(cat)">Modificar</a>
+                    <a class="link-danger" href="#" t-on-click="() => this.openDeleteDialog(cat)">Quitar</a>
                 </div>
-                <div class="card-body">
-                    <ul class="list-group list-group-flush">
-                    <t t-foreach="state.all" t-as="cat" t-key="cat.id">
-                        <li t-attf-class="list-group-item d-flex justify-content-between">
-                        <strong t-esc="cat.name" />
-                        <div class="hstack gap-2">
-                            <a class="link-primary" href="#" t-on-click="() => this.selectCategory(cat)">Modificar</a>
-                            <a class="link-danger" href="#" t-on-click="() => this.deleteCategory(cat)">Quitar</a>
-                        </div>
-                        </li>
-                        <t t-if="cat.children.length">
-                            <ul class="list-group list-group-flush ms-4">
-                            <t t-foreach="cat.children" t-as="child" t-key="child.id">
-                                <li class="list-group-item d-flex justify-content-between">
-                                    <t t-esc="child.name" />
-                                    <div class="hstack gap-2">
-                                        <a class="link-primary" href="#" t-on-click="() => this.selectCategory(cat)">Modificar</a>
-                                        <a class="link-danger" href="#" t-on-click="() => this.deleteCategory(cat)">Quitar</a>
-                                    </div>
-                                </li>
-                                <!-- Si hay nietos -->
-                                <t t-if="child.children.length">
-                                    <ul class="list-group list-group-flush ms-3">
-                                    <t t-foreach="child.children" t-as="grandchild" t-key="grandchild.id">
-                                        <li class="list-group-item d-flex justify-content-between">
-                                        <t t-esc="grandchild.name" />
-                                        <div class="hstack gap-2">
-                                            <a class="link-primary" href="#" t-on-click="() => this.selectCategory(cat)">Modificar</a>
-                                            <a class="link-danger" href="#" t-on-click="() => this.deleteCategory(cat)">Quitar</a>
-                                        </div>
-                                        </li>
-                                    </t>
-                                    </ul>
-                                </t>
-                            </t>
-                            </ul>
-                        </t>
-                    </t>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Card para Vehículos -->
-            <div class="card mb-4 shadow-sm rounded">
-            <div class="card-header bg-primary text-white">
-                Categorías de Vehículos
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                <t t-foreach="state.vehicle_categories" t-as="cat" t-key="cat.id">
-                    <li class="list-group-item">
-                    <strong t-esc="cat.name" />
-                    <t t-if="cat.children.length">
-                        <ul class="list-group list-group-flush ms-3">
-                        <t t-foreach="cat.children" t-as="child" t-key="child.id">
-                            <li class="list-group-item">
-                            <t t-esc="child.name" />
-                            <!-- Si hay nietos -->
-                            <t t-if="child.children.length">
-                                <ul class="list-group list-group-flush ms-3">
-                                <t t-foreach="child.children" t-as="grandchild" t-key="grandchild.id">
-                                    <li class="list-group-item">
-                                    <t t-esc="grandchild.name" />
-                                    </li>
-                                </t>
-                                </ul>
-                            </t>
-                            </li>
-                        </t>
-                        </ul>
-                    </t>
-                    </li>
+                </li>
+                <t t-if="cat.children.length">
+                    <CategoryHierarchyList 
+                        categories="cat.children" 
+                        onOpenEditDialog.bind="openEditDialog" 
+                        onOpenDeleteDialog.bind="openDeleteDialog" />
                 </t>
-                </ul>
-            </div>
-            </div>
-
-            <!-- Card para Conductores -->
-            <div class="card shadow-sm rounded">
-            <div class="card-header bg-secondary text-white">
-                Categorías de Conductores
-            </div>
-            <div class="card-body">
-                <ul class="list-group list-group-flush">
-                <t t-foreach="state.driver_categories" t-as="cat" t-key="cat.id">
-                    <li class="list-group-item">
-                    <strong t-esc="cat.name" />
-                    <t t-if="cat.children.length">
-                        <ul class="list-group list-group-flush ms-3">
-                        <t t-foreach="cat.children" t-as="child" t-key="child.id">
-                            <li class="list-group-item">
-                            <t t-esc="child.name" />
-                            <t t-if="child.children.length">
-                                <ul class="list-group list-group-flush ms-3">
-                                <t t-foreach="child.children" t-as="grandchild" t-key="grandchild.id">
-                                    <li class="list-group-item">
-                                    <t t-esc="grandchild.name" />
-                                    </li>
-                                </t>
-                                </ul>
-                            </t>
-                            </li>
-                        </t>
-                        </ul>
-                    </t>
-                    </li>
-                </t>
-                </ul>
-            </div>
-            </div>
-        </div>
+            </t>
+        </ul>
     </t>
 </odoo>

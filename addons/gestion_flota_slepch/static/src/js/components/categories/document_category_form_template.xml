@@ -1,28 +1,69 @@
-<odoo>
+<templates xml:space="preserve">
     <t t-name="gestion_flota_slepch.DocumentCategoryForm">
-        <div class="o_form card p-4">
-        <h2>Crear categoria</h2>
-            <div class="o_field input-group mt-2">
-                <label class="input-group-text" >Nombre</label>
-                <input class="form-control" type="text" t-on-input="ev => state.name = ev.target.value" t-att-value="state.name" />
-            </div>
-            <div class="o_field form-check mt-2">
-                <label class="form-check-label">Es Requerido</label>
-                <input class="form-check-input" type="checkbox" t-on-change="ev => state.required = ev.target.checked" t-att-checked="state.required" />
-            </div>
-            <div class="o_field mt-2 input-group">
-                <label class="input-group-text">Categoría Padre</label>
-                <select class="form-control" t-on-change="onChangeParentCategory">
-                    <option value="">-- Ninguna --</option>
-                    <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
-                        <option t-att-value="cat.id" t-att-selected="cat.id === state.parent_id"><t t-esc="cat.name"/></option>
-                    </t>
-                </select>
-            </div>
-            <div class="o_buttons mt-2 hstack gap-2">
-                <button class="btn btn-primary" type="button" t-on-click="saveCategory">Guardar</button>
-                <button class="btn btn-danger" type="button" t-on-click="resetForm">Cancelar</button>
+        <div class="modal o_dialog show d-block" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <!-- HEADER -->
+                    <div class="modal-header">
+                        <h5 class="modal-title">
+                            <t t-esc="state.editionMode ? 'Editando categoría' : 'Creando categoría'" />
+                        </h5>
+                        <button type="button" class="btn-close" aria-label="Close" t-on-click="resetClose"/>
+                    </div>
+
+                    <!-- BODY -->
+                    <div class="modal-body">
+                        <div class="o_form card p-4">
+                            <div class="o_field mt-2 input-group">
+                                <label class="input-group-text">Tipo</label>
+                                <select class="form-control" 
+                                    t-att-value="state.document_type"  
+                                    t-model="state.document_type"
+                                    t-on-change="ev => state.document_type = ev.target.value">
+                                    <option value="">-- Ninguna --</option>
+                                    <option t-att-selected="'vehicles' === state.document_type" value="vehicles">Vehiculos</option>
+                                    <option t-att-selected="'drivers' === state.document_type" value="drivers">Conductores</option>
+                                    <option t-att-selected="'incidents' === state.document_type" value="incidents">Incidentes</option>
+                                    <option t-att-selected="'contracts' === state.document_type" value="contracts">Contratos</option>
+                                </select>
+                            </div>
+                            <div class="o_field input-group mt-2">
+                                <label class="input-group-text">Nombre</label>
+                                <input class="form-control" type="text" 
+                                    t-on-input="ev => state.name = ev.target.value" 
+                                    t-att-value="state.name" />
+                            </div>
+                            <div class="o_field form-check mt-2">
+                                <input class="form-check-input" type="checkbox"
+                                    t-on-change="ev => state.required = ev.target.checked"
+                                    t-att-checked="state.required"/>
+                                <label class="form-check-label">Es Requerido</label>
+                            </div>
+                            <div class="o_field mt-2 input-group">
+                                <label class="input-group-text">Categoría Padre</label>
+                                <select class="form-control" 
+                                    t-on-change="onChangeParentCategory"
+                                    t-model="state.parent_id">
+                                    <option value="">-- Ninguna --</option>
+                                    <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
+                                        <option t-att-value="cat.id" t-att-selected="cat.id === state.parent_id">
+                                            <t t-esc="cat.name"/>
+                                        </option>
+                                    </t>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FOOTER -->
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" t-on-click="resetClose">Cancelar</button>
+                        <button class="btn btn-primary" type="button" t-on-click="saveCategory">
+                            <t t-esc="state.editionMode ? 'Actualizar' : 'Crear'" />
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </t>
-</odoo>
+</templates>

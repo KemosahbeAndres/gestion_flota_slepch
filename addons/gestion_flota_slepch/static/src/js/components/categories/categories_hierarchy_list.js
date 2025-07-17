@@ -7,86 +7,58 @@ import { useService } from '@web/core/utils/hooks';
 
 export class CategoryHierarchyList extends Component {
     static template = "gestion_flota_slepch.CategoryHierarchyList";
-    /*static props = {
-        selectedCategory: { type: [Object, null], optional: true },
-        onSelectCategory: { type: Function, optional: true }
-    }*/
+    static props = {
+        onOpenEditDialog: Function,
+        onOpenDeleteDialog: Function,
+        categories: {required: false},
+    }
 
     setup() {
-        console.log("[HierarchyList] Servicios disponibles:", Object.keys(this.env.services));
-
-        this.state = useState({ 
-            all: [],
-            vehicle_categories: [],
-            driver_categories: [],
-            contract_categories: [],
-            incident_categories: [],
-            selectedCategory: null,
-        });
-
-        this.orm = useService('orm');
+        super.setup();
+        
         this.dialog = useService('dialog')
-        this.notification = useService('notification');
-
+        this.notification = useService('notification')
+        this.state = useState({ 
+            list: []
+        })
         onWillStart(async () => {
             try {
-                await this.loadCategories();
+                await this.loadData()
             }catch(e){
-                console.error("ERROR: ", e)
+                this.notification.add("Error multiple", { type: "danger" })
             }
         });
     }
 
-    async loadCategories() {
+    async loadData(){
+        if(this.props.categories && this.props.categories.length){
+            this.state.list = [...this.props.categories]
+        }else{
+            this.notification.add("Error al cargar las categorias.", { type: "danger" })
+        }
 
-        this.state.all = await this.orm.call(
-            'flota.document.category',
-            'get_category_hierarchy',
-            [],
-            {}
-        )
-        this.state.vehicle_categories = await this.orm.call(
-            'flota.document.category',
-            'get_category_hierarchy',
-            [],
-            {}
-        )
-        //this.state.driver_categories = await this.rpc('/api_flota/categories', { document_type: 'drivers' });
-        //this.state.all = [...this.state.vehicle_categories, ...this.state.driver_categories]
-
+        if(this.props.onOpenEditDialog && this.props.onOpenDeleteDialog){
+            console.log("callback listos!")
+        }else{
+            this.notification.add("Error, no se encuentran los callback necesarios.", { type: "danger" })
+        }
+        console.info(this.props)
     }
 
-    selectCategory(cat) {
-        this.state.selectCategory = cat
-        console.info("Selcted Category:",cat)
-        alert("seleccionado "+"["+cat.id+"] "+cat.name)
-        //this.props.onSelectCategory(cat);
-    }
-
-    async deleteCategory(category) {
+    openDeleteDialog(category){
         try{
-            const confirmed = await this.dialog.add({
-                title: "Confirmar eliminación",
-                body: "¿Está seguro que desea eliminar esta categoría?",
-            });
-            if (!confirmed) return;
-            try {
-                await this.orm.unlink("flota.document.category", [category.id]);
-                this.notification.add("Categoría eliminada correctamente.", {
-                    type: "success"
-                });
-            } catch (error) {
-                console.error("Error al eliminar categoría:", error);
-                this.notification.add("Error al eliminar categoría.", {
-                    type: "danger"
-                });
-            }
-        }catch (error) {
-            console.error("Error:", error);
-            this.notification.add("Error.", {
-                type: "danger"
-            });
+            this.props.onOpenDeleteDialog(category)
+        }catch(e){
+            this.notification.add("Error al intentar borrar la categoria.", { type: "danger" })
+            console.error(e)
         }
     }
-
+    openEditDialog(category){
+        try{
+            this.props.onOpenEditDialog(category)
+        }catch(e){
+            this.notification.add("Error al intentar editar la categoria.", { type: "danger" })
+            console.error(e)
+        }
+    }
 }
