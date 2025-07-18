@@ -24,6 +24,7 @@ class DocumentCategory(models.Model):
     parent_path = fields.Char(index=True)  # Necesario para soportar búsquedas jerárquicas (`_parent_store = True`)
     document_type = fields.Selection(
         selection=[
+            ('empty', 'Sin categoría'),
             ('vehicles', 'Vehículos'),
             ('drivers', 'Conductores'),
             ('contracts', 'Contratos'),
@@ -42,7 +43,9 @@ class DocumentCategory(models.Model):
         categories = self.search(domain).read(['id', 'name', 'parent_id', 'document_type', 'required'])
 
         # Construir jerarquía en backend
-        category_map = {cat['id']: {**cat, 'children': []} for cat in categories}
+        category_map = {
+            cat['id']: {**cat, 'children': []} for cat in categories
+        }
         hierarchy = []
         
         for cat in categories:
@@ -53,3 +56,28 @@ class DocumentCategory(models.Model):
                 hierarchy.append(category_map[cat['id']])
 
         return hierarchy
+
+    @api.model
+    def get_parent_childs(self, node_id=None):
+        if not node_id:
+            return []
+        
+        # Obtener todas las categorías primero (porque debes reconstruir el árbol completo)
+        categories = self.search([]).read(['id', 'name', 'parent_id', 'document_type', 'required'])
+
+        # Construir mapa category_id → nodo con children
+        category_map = {
+            cat['id']: {**cat, 'children': []} for cat in categories
+        }
+
+        # Construir árbol completo primero
+        for cat in categories:
+            parent_id = cat['parent_id'][0] if cat['parent_id'] else None
+            if parent_id and parent_id in category_map:
+                category_map[parent_id]['children'].append(category_map[cat['id']])
+
+        # Ahora obtener solo el nodo raíz deseado (`id`) con toda su jerarquía descendente:
+        return category_map[node_id]['children'] if node_id in category_map else []
+
+
+

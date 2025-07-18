@@ -4,13 +4,14 @@ services:
   odoo:
     image: odoo:18.0
     container_name: odoo
+    user: "${UID}:${GID}"
     ports:
       - "8069:8069"
     volumes:
       - ./addons:/mnt/extra-addons
       - ./odoo.conf:/etc/odoo/odoo.conf
-      - postgres_data:/var/lib/postgresql/data
-      - odoo_data:/var/lib/odoo
+      - postgres_data_dev:/var/lib/postgresql/data
+      - odoo_data_dev:/var/lib/odoo
     environment:
       - HOST=postgres
       - USER=odoo
@@ -26,8 +27,8 @@ services:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=odoo
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - postgres_data_dev:/var/lib/postgresql/data
       
 volumes:
-  odoo_data:
-  postgres_data:
+  odoo_data_dev:
+  postgres_data_dev:

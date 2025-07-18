@@ -37,7 +37,7 @@ export class CategoryHierarchyList extends Component {
         if(!this.props.onOpenEditDialog && !this.props.onOpenDeleteDialog){
             this.notification.add("Error, no se encuentran los callback necesarios.", { type: "danger" })
         }
-        console.info(this.props)
+        //console.info(this.props)
     }
 
     openDeleteDialog(category){

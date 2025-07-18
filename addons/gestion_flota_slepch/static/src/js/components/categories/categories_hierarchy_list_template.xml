@@ -4,6 +4,7 @@
             <t t-foreach="props.categories" t-as="cat" t-key="cat.id">
                 <li t-attf-class="list-group-item d-flex justify-content-between">
                 <p>
+                    <button class="btn me-2 ps-0"><i class="fa fa-th"></i></button>
                     <t t-esc="cat.name" />
                     <span t-if="cat.required" class="badge bg-secondary ms-2">Obligatorio</span>
                 </p>

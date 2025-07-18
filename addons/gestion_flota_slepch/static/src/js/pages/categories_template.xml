@@ -2,20 +2,94 @@
     <t t-name="gestion_flota_slepch.CategoriesTemplate">
         <div class="o_content container-fluid rounded p-4 bg-white">
             <div class="container">
-                <div class="hstack mb-4">
-                    <h2>Categorias</h2>
-                    <input type="button" value="Nuevo" class="btn btn-primary ms-2" t-on-click="() => this.openCreateDialog()"/>
+                <div class="hstack gap-2 mb-4">
+                    <input type="button" value="Nuevo tipo" class="btn btn-primary" t-on-click="() => this.openCreateDialog()"/>
+                    <h2 class="m-0">Asignación de documentos</h2>
+                    <span class="badge bg-primary text-light"><t t-esc="state.category_count"></t></span>
                 </div>
-                <div class="grid mt-2" style="--columns: 3; --gap: 2rem;">
-                    <!-- Card para sin Categoria -->
-                    <div class="card mb-4 shadow-sm rounded">
-                        <div class="card-header bg-primary text-white">Sin Categoría</div>
-                        <div class="card-body">
-                            <CategoryHierarchyList 
-                                categories="state.uncategorized" 
-                                onOpenEditDialog.bind="openEditDialog" 
-                                onOpenDeleteDialog.bind="openDeleteDialog" />
+                <div class="mt-2">
+                    <div class="accordion" id="accordionPanelsStayOpenExample">
+                        <div class="accordion-item my-4">
+                            <h2 class="accordion-header">
+                            <button class="accordion-button" t-att-class="state.uncategorized.length > 0 ? '' : 'collapsed'" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" t-att-aria-expanded="state.uncategorized.length > 0" aria-controls="panelsStayOpen-collapseOne">
+                                Sin Asignar <span class="badge bg-secondary mx-2"><t t-esc="state.uncategorized.length"></t></span>
+                            </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse" t-att-class="state.uncategorized.length > 0 ? 'show' : ''">
+                            <div class="accordion-body">
+                            <t t-if="state.uncategorized.length == 0">Nada que mostrar aquí</t>
+                                <CategoryHierarchyList 
+                                    categories="state.uncategorized" 
+                                    onOpenEditDialog.bind="openEditDialog" 
+                                    onOpenDeleteDialog.bind="openDeleteDialog" />
+                            </div>
+                            </div>
                         </div>
+                        <div class="accordion-item mt-4">
+                            <h2 class="accordion-header">
+                            <button class="accordion-button" t-att-class="state.vehicles.length > 0 ? '' : 'collapsed'" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" t-att-aria-expanded="state.vehicles.length > 0" aria-controls="panelsStayOpen-collapseTwo">
+                                Vehículos <span class="badge bg-secondary mx-2"><t t-esc="state.vehicles.length"></t></span>
+                            </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" t-att-class="state.vehicles.length > 0 ? 'show' : ''">
+                            <div class="accordion-body">
+                            <t t-if="state.vehicles.length == 0">Nada que mostrar aquí</t>
+                                <CategoryHierarchyList 
+                                    categories="state.vehicles" 
+                                    onOpenEditDialog.bind="openEditDialog" 
+                                    onOpenDeleteDialog.bind="openDeleteDialog" />
+                            </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" t-att-class="state.drivers.length > 0 ? '' : 'collapsed'" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" t-att-aria-expanded="state.drivers.length > 0" aria-controls="panelsStayOpen-collapseThree">
+                                    Conductores <span class="badge bg-secondary mx-2"><t t-esc="state.drivers.length"></t></span>
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse" t-att-class="state.drivers.length > 0 ? 'show' : ''">
+                                <div class="accordion-body">
+                                <t t-if="state.drivers.length == 0">Nada que mostrar aquí</t>
+                                    <CategoryHierarchyList 
+                                        categories="state.drivers" 
+                                        onOpenEditDialog.bind="openEditDialog" 
+                                        onOpenDeleteDialog.bind="openDeleteDialog" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" t-att-class="state.incidents.length > 0 ? '' : 'collapsed'" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" t-att-aria-expanded="state.incidents.length > 0" aria-controls="panelsStayOpen-collapseFour">
+                                    Incidentes <span class="badge bg-secondary mx-2"><t t-esc="state.incidents.length"></t></span>
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse" t-att-class="state.incidents.length > 0 ? 'show' : ''">
+                                <div class="accordion-body">
+                                <t t-if="state.incidents.length == 0">Nada que mostrar aquí</t>
+                                    <CategoryHierarchyList 
+                                        categories="state.incidents" 
+                                        onOpenEditDialog.bind="openEditDialog" 
+                                        onOpenDeleteDialog.bind="openDeleteDialog" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button" t-att-class="state.contracts.length > 0 ? '' : 'collapsed'" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" t-att-aria-expanded="state.contracts.length > 0" aria-controls="panelsStayOpen-collapseFive">
+                                    Contratos <span class="badge bg-secondary mx-2"><t t-esc="state.contracts.length"></t></span>
+                                </button>
+                            </h2>
+                            <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse" t-att-class="state.contracts.length > 0 ? 'show' : ''">
+                                <div class="accordion-body">
+                                <t t-if="state.contracts.length == 0">Nada que mostrar aquí</t>
+                                    <CategoryHierarchyList 
+                                        categories="state.contracts" 
+                                        onOpenEditDialog.bind="openEditDialog" 
+                                        onOpenDeleteDialog.bind="openDeleteDialog" />
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>

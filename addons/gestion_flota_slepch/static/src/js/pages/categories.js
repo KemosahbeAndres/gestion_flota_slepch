@@ -1,5 +1,5 @@
 /** @odoo-module **/
-import { Component, useState, onWillStart } from "@odoo/owl";
+import { Component, useState, useEffect, onWillStart } from "@odoo/owl";
 import { useService } from '@web/core/utils/hooks';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
@@ -19,12 +19,27 @@ export class Categories extends Component {
         this.dialog = useService('dialog')
         this.notification = useService('notification');
         this.state = useState({
+            category_count: 0,
             uncategorized: [],
             vehicles: [],
             drivers: [],
             contracts: [],
             incidents: [],
         })
+
+        useEffect(() => {
+            this.state.category_count = this.countHierarchy(this.state.uncategorized)
+                                        + this.countHierarchy(this.state.vehicles)
+                                        + this.countHierarchy(this.state.drivers)
+                                        + this.countHierarchy(this.state.incidents)
+                                        + this.countHierarchy(this.state.contracts);
+        }, () => [
+            this.state.uncategorized.length, 
+            this.state.vehicles.length,
+            this.state.drivers.length,
+            this.state.incidents.length,
+            this.state.contracts.length
+        ]);
 
         onWillStart(async () => {
             try {
@@ -36,13 +51,20 @@ export class Categories extends Component {
         });
     }
 
+    countHierarchy(hierarchy){
+        //console.info("jerarquia: ",hierarchy)
+        let count = 0
+        count += hierarchy.length
+        for(const item of hierarchy){
+            if(item.children && item.children.length > 0) count += this.countHierarchy(item.children)
+        }
+        return count
+    }
+
     openEditDialog(category){
         this.dialog.add(DocumentCategoryForm, {
             category: category,
-            onSaved: () => {
-                this.state.uncategorized = []
-                this.loadCategories()
-            },
+            onSaved: async () => await this.loadCategories(),
         });
     }
 
@@ -54,25 +76,40 @@ export class Categories extends Component {
     }
 
     async loadCategories() {
-        console.info("Actualizando listado de categorias...", this.state.uncategorized)
+        //console.info("Actualizando listado de categorias...", this.state.uncategorized)
         const uncategorized = await this.orm.call(
             'flota.document.category',
             'get_category_hierarchy',
-            [],
+            ['empty'],
             {}
         )
         this.state.uncategorized = uncategorized
-        console.log("Uncategorized", uncategorized)
-        this.state.vehicle_categories = [...await this.orm.call(
+        //console.log("Uncategorized", uncategorized)
+
+        this.state.vehicles = [...await this.orm.call(
             'flota.document.category',
             'get_category_hierarchy',
             ['vehicles'],
             {}
         )]
-        this.state.driver_categories = [...await this.orm.call(
+        this.state.drivers = [...await this.orm.call(
             'flota.document.category',
             'get_category_hierarchy',
             ['drivers'],
+            {}
+        )]
+
+        this.state.incidents = [...await this.orm.call(
+            'flota.document.category',
+            'get_category_hierarchy',
+            ['incidents'],
+            {}
+        )]
+
+        this.state.contracts = [...await this.orm.call(
+            'flota.document.category',
+            'get_category_hierarchy',
+            ['contracts'],
             {}
         )]
     }
@@ -99,6 +136,7 @@ export class Categories extends Component {
                             type: "danger"
                         });
                     }
+                    await this.loadCategories()
                 },
                 cancel: () => {
                     // Acción al cancelar (puede quedar vacío; el diálogo simplemente se cierra)
@@ -110,7 +148,7 @@ export class Categories extends Component {
                 type: "danger"
             });
         }
-        this.loadCategories()
+        await this.loadCategories()
     }
 
 }

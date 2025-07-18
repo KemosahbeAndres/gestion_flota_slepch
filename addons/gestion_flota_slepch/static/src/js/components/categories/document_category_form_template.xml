@@ -6,21 +6,38 @@
                     <!-- HEADER -->
                     <div class="modal-header">
                         <h5 class="modal-title">
-                            <t t-esc="state.editionMode ? 'Editando categoría' : 'Creando categoría'" />
+                            <t t-esc="state.editionMode ? 'Editando tipo de documento' : 'Creando tipo de documento'" />
                         </h5>
                         <button type="button" class="btn-close" aria-label="Close" t-on-click="resetClose"/>
                     </div>
 
                     <!-- BODY -->
                     <div class="modal-body">
-                        <div class="o_form card p-4">
+                        <div class="o_form p-4">
+                            <div class="o_field input-group mt-2">
+                                <label class="input-group-text">Nombre</label>
+                                <input 
+                                    class="form-control" 
+                                    t-att-class="{
+                                        'is-invalid': state.errors.name
+                                    }" 
+                                    type="text"
+                                    t-model="state.name"
+                                    t-on-input="validateForm"
+                                    t-on-focus="() => state.touched.name = false"
+                                    t-on-blur="validateForm"
+                                    t-att-value="state.name" />
+                            </div>
+                            <div class="invalid-feedback">
+                            <p>Debes llenar este campo!</p>
+                            </div>
                             <div class="o_field mt-2 input-group">
-                                <label class="input-group-text">Categoría Padre</label>
-                                <select class="form-control" 
+                                <label class="input-group-text">Documento Padre</label>
+                                <select class="form-select" 
                                     t-on-change="onChangeParentCategory"
                                     t-model="state.parent_id"
                                     t-att-disabled="state.parent_blocked">
-                                    <option value="">-- Ninguna --</option>
+                                    <option value="">Ninguno</option>
                                     <t t-foreach="state.categories" t-as="cat" t-key="cat.id">
                                         <option t-att-value="cat.id">
                                             <t t-esc="cat.name"/>
@@ -29,31 +46,29 @@
                                 </select>
                             </div>
                             <div class="o_field mt-2 input-group">
-                                <label class="input-group-text">Tipo</label>
-                                <select class="form-control" 
+                                <label class="input-group-text">Asignar a</label>
+                                <select class="form-select" 
                                     t-model="state.document_type"
-                                    t-att-disabled="state.blocked"
+                                    t-att-disabled="state.type_blocked"
                                     t-on-change="ev => state.document_type = ev.target.value">
-                                    <option value="">-- Ninguna --</option>
+                                    <option value="" t-att-selected="state.document_type == 'empty'">Ninguno</option>
                                     <option value="vehicles">Vehiculos</option>
                                     <option value="drivers">Conductores</option>
                                     <option value="incidents">Incidentes</option>
                                     <option value="contracts">Contratos</option>
                                 </select>
                             </div>
-                            <div class="o_field input-group mt-2">
-                                <label class="input-group-text">Nombre</label>
-                                <input class="form-control" type="text" 
-                                    t-on-input="ev => state.name = ev.target.value" 
-                                    t-att-value="state.name" />
-                            </div>
-                            <div class="o_field form-check mt-2">
-                                <input class="form-check-input" 
+                            
+                            <div class="o_field mt-2">
+                                <input class="btn-check form-check-input" 
+                                    id="btn-required-check"
+                                    autocomplete="off"
                                     type="checkbox"
-                                    t-att-disabled="state.blocked"
+                                    t-att-disabled="state.required_blocked"
                                     t-on-change="ev => state.required = ev.target.checked"
-                                    t-att-checked="state.required"/>
-                                <label class="form-check-label">Obligatorio</label>
+                                    t-att-checked="state.required"
+                                    style="clip:initial;left:2rem;margin-left:1.2em;margin-top:0.6em;margin-bottom:0.6em;"/>
+                                <label style="padding-left:2em;" class="btn btn-outline-primary" for="btn-required-check">Obligatorio</label>
                             </div>
                             
                         </div>
@@ -62,7 +77,8 @@
                     <!-- FOOTER -->
                     <div class="modal-footer">
                         <button class="btn btn-secondary" type="button" t-on-click="resetClose">Cancelar</button>
-                        <button class="btn btn-primary" type="button" t-on-click="saveCategory">
+                        <button class="btn btn-primary" type="button" t-on-click="saveCategory"
+                                t-att-disabled="state.errors.name">
                             <t t-esc="state.editionMode ? 'Actualizar' : 'Crear'" />
                         </button>
                     </div>
