@@ -3,7 +3,7 @@
 from odoo import models, fields, api
 
 
-class DocumentCategory(models.Model):
+class DocumentType(models.Model):
     _name = 'flota.document.category'
     _description = 'Categoría de Documentos'
     #_parent_name = 'parent_id'  # Esto habilita características nativas de jerarquía

@@ -23,6 +23,11 @@
                 name="Administración"
                 parent="gestion_flota_menu_root"/>
 
+        <menuitem id="gestion_flota_menu_establecimientos"
+                name="Establecimientos"
+                parent="gestion_flota_menu_admin"
+                action="action_dashboard_fleet"/>
+
         <menuitem id="gestion_flota_menu_vehiculos"
                 name="Vehículos"
                 parent="gestion_flota_menu_admin"
@@ -43,8 +48,8 @@
                 action="action_dashboard_fleet"
                 sequence="1"/>
 
-        <menuitem id="gestion_flota_menu_categorias"
-                name="Categorias"
+        <menuitem id="gestion_flota_menu_tipo_documentos"
+                name="Tipología de Documentos"
                 parent="gestion_flota_menu_documentacion"
                 action="action_doc_categories_fleet"
                 sequence="2"/>

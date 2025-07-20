@@ -3,8 +3,8 @@ import { Component, useState, useEffect, onWillStart } from "@odoo/owl";
 import { useService } from '@web/core/utils/hooks';
 import { ConfirmationDialog } from "@web/core/confirmation_dialog/confirmation_dialog";
 import { _t } from "@web/core/l10n/translation";
-import { DocumentCategoryForm } from "../components/categories/document_category_form";
-import { CategoryHierarchyList } from "../components/categories/categories_hierarchy_list";
+import { DocumentCategoryForm } from "../components/doctypes/document_type_form";
+import { CategoryHierarchyList } from "../components/doctypes/doctypes_hierarchy_list";
 
 export class Categories extends Component {
     static template = "gestion_flota_slepch.CategoriesTemplate"
