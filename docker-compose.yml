@@ -19,6 +19,7 @@ services:
       - DB_FILTER=.*
     depends_on:
       - postgres
+    command: odoo --init base --dev=all
 
   postgres:
     image: postgres:13
