@@ -5,7 +5,7 @@ import { registry } from "@web/core/registry";
 import { Dashboard } from "./pages/dashboard";
 import { Categories } from "./pages/categories";
 
-import { categoryStore } from "./stores/category_store";
+//import { categoryStore } from "./stores/category_store";
 
 //registry.category("services").add("categoryStore", categoryStore);
 
