@@ -1,4 +1,4 @@
-<odoo>
+<templates id="template" xml:space="preserve">
     <t t-name="gestion_flota_slepch.DashboardTemplate">
     <div class="o_main">
         <div class="o_content p-4">
@@ -6,8 +6,7 @@
                 <h2>Dashboard de Gestión de Flota</h2>
                 <p>El Servicio Local de Educación Pública Chinchorro es un organismo público encargado de administrar los recursos destinados para la educación en nuestra región de Arica y Parinacota. Actualmente existen 75 establecimientos activos, que imparten educación a más de 19.000 estudiantes de nivel básico y medio, a estos se le suman más de 3.000 funcionarios que trabajan apoyando las labores de educación.</p>
                 <p>Esta institución cuenta con un parque automotriz de más de 50 vehículos a su disposición. Estos vehículos, en su mayoría buses, son utilizados por los establecimientos educacionales en la región, para el traslado y acercamiento de los alumnos hacia los establecimientos, a sus hogares y a diferentes actividades extracurriculares programadas por el mismo. Además, una pequeña cantidad de vehículos está destinada para el uso de los funcionarios del servicio local para realizar labores de mantenimiento y soporte a estos establecimientos.</p>
-                <p>Evidentemente una mejora en la gestión de la flota afectara positivamente en la educación que reciben los alumnos, y que imparten los profesores, asistentes, técnicos y profesionales del área, además de los apoderados que se ven involucrados por consecuencia. También se debe considerar que, como todo servicio público, está comprometido con la ciudadanía a cumplir con leyes y normativas que le exigen entre otras cosas, mantener transparencia en todos sus procesos (Ley de Transparencia), administrar apropiadamente los recursos públicos (Ley 10.336 de Responsabilidad en el uso de recursos públicos) y actualizar sus procesos internos a una modalidad digital y moderna (Ley 19.799 de Modernización del Estado). Lo que convierte a este proyecto en un paso más hacia la digitalización de los procesos dentro de este y otros servicios públicos.
-</p>
+                <p>Evidentemente una mejora en la gestión de la flota afectara positivamente en la educación que reciben los alumnos, y que imparten los profesores, asistentes, técnicos y profesionales del área, además de los apoderados que se ven involucrados por consecuencia. También se debe considerar que, como todo servicio público, está comprometido con la ciudadanía a cumplir con leyes y normativas que le exigen entre otras cosas, mantener transparencia en todos sus procesos (Ley de Transparencia), administrar apropiadamente los recursos públicos (Ley 10.336 de Responsabilidad en el uso de recursos públicos) y actualizar sus procesos internos a una modalidad digital y moderna (Ley 19.799 de Modernización del Estado). Lo que convierte a este proyecto en un paso más hacia la digitalización de los procesos dentro de este y otros servicios públicos.</p>
             </div>
             <div class="o_group">
                 <h3>Test area...</h3>
@@ -15,4 +14,4 @@
         </div>
     </div>
     </t>
-</odoo>
+</templates>
